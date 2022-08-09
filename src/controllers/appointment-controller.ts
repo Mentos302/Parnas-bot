@@ -52,11 +52,6 @@ class AppointmentContoroller {
 
     const phone = ctx.message?.contact.phone_number || ctx.message?.text;
 
-    console.log({
-      ...ctx.scene.state,
-      phone,
-    });
-
     // TO-DO: [MIDDLEWARE] phone validation
     // TO-DO: [SERVICE] send form to email/tg
 
