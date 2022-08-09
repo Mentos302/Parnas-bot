@@ -8,5 +8,9 @@ export default (() => {
 
   scene.action("req1", controller.toAppointment);
 
+  scene.action("req2", controller.toCallback);
+
+  scene.action("req3", controller.toChating);
+
   return scene;
 })();

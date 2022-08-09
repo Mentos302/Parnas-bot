@@ -7,7 +7,9 @@ class CallbackContoroller {
     ctx.reply(
       "Будь ласка, надішліть свій номер телефону, просто натиснувши на нього.\n\nЯкщо він не з’явився, або цей номер не актуальний, напишіть свій коректний номер для зв’язку.\n\nДякуємо!",
       Extra.HTML().markup((m: Markup<any>) =>
-        m.keyboard([m.contactRequestButton("Поділитися")])
+        m
+          .keyboard([m.contactRequestButton("Поділитися номером телефону")])
+          .resize()
       )
     );
   }
@@ -15,11 +17,9 @@ class CallbackContoroller {
   resPhone(ctx: ITelegrafContext) {
     ctx.reply(
       "Дякуємо! Ваша заявка на дзвінок успішно прийнята.\n\nМи обов’язково зателефонуємо Вам!",
-      Extra.HTML()
-        .markup((m: Markup<any>) =>
-          m.inlineKeyboard([[m.callbackButton("Повернутись в меню", "any")]])
-        )
-        .markup((m: Markup<any>) => m.removeKeyboard())
+      Extra.HTML().markup((m: Markup<any>) =>
+        m.inlineKeyboard([[m.callbackButton("Повернутись в меню", "any")]])
+      )
     );
 
     const phone = ctx.message?.contact.phone_number || ctx.message?.text;

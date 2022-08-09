@@ -4,9 +4,14 @@ import { ITelegrafContext } from "../interfaces/ITelegrafContext";
 const Extra = require("telegraf/extra");
 
 class WelcomeContoroller {
-  greeting(ctx: ITelegrafContext) {
+  async greeting(ctx: ITelegrafContext) {
+    await ctx.reply(
+      "<b>👋 Вітаю! Я віртуальний помічник клініки естетичної стоматології PARNAS</b>",
+      Extra.HTML().markup((m: Markup<any>) => m.removeKeyboard())
+    );
+
     ctx.reply(
-      "<b>👋 Вітаю! Я віртуальний помічник клініки естетичної стоматології PARNAS</b>\n\n<i>Я можу допомогти Вам:</i>",
+      "<i>Я можу допомогти Вам:</i>",
       Extra.HTML().markup((m: Markup<any>) =>
         m.inlineKeyboard([
           [m.callbackButton("📥 Записатися на прийом", "req1")],

@@ -35,7 +35,9 @@ class AppointmentContoroller {
     ctx.reply(
       "Відправте номер телефону для зв'язку з Вами 📞",
       Extra.HTML().markup((m: Markup<any>) =>
-        m.keyboard([m.contactRequestButton("Відправити номер телефону")])
+        m
+          .keyboard([m.contactRequestButton("Відправити номер телефону")])
+          .resize()
       )
     );
   }
@@ -43,11 +45,9 @@ class AppointmentContoroller {
   async resPhone(ctx: ITelegrafContext) {
     ctx.reply(
       "Ви успішно залишили заявку, очікуйте з Вами зв'яжкуться найближчим часом.",
-      Extra.HTML()
-        .markup((m: Markup<any>) =>
-          m.inlineKeyboard([[m.callbackButton("Повернутись в меню", "any")]])
-        )
-        .markup((m: Markup<any>) => m.removeKeyboard())
+      Extra.HTML().markup((m: Markup<any>) =>
+        m.inlineKeyboard([[m.callbackButton("Повернутись в меню", "any")]])
+      )
     );
 
     const phone = ctx.message?.contact.phone_number || ctx.message?.text;
