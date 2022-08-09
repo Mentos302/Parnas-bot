@@ -1,8 +1,11 @@
-import { TelegrafContext } from 'telegraf/typings/context'
+import { TelegrafContext } from "telegraf/typings/context";
 
 export interface ITelegrafContext extends TelegrafContext {
-  session: any
-  scene: any
-  i18n: any
-  callbackQuery: any
+  session: any;
+  scene: any;
+  i18n: any;
+  callbackQuery: any;
+  contact: {
+    phone_number: string;
+  };
 }

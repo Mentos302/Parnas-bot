@@ -1,12 +1,12 @@
-const Scene = require('telegraf/scenes/base')
-import controller from '../../controllers/welcome-controller'
+const Scene = require("telegraf/scenes/base");
+import controller from "../../controllers/welcome-controller";
 
 export default (() => {
-  const scene = new Scene('welcome')
+  const scene = new Scene("welcome");
 
-  scene.enter(controller.greeting)
+  scene.enter(controller.greeting);
 
-  // scene.on('message', controller.resAge)
+  scene.action("req1", controller.toAppointment);
 
-  return scene
-})()
+  return scene;
+})();

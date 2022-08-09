@@ -1,14 +1,14 @@
-import path from 'path'
-import db from './database'
-import Telegraf from 'telegraf'
-import sceneInitialisation from './staging'
-import { TelegrafContext } from 'telegraf/typings/context'
-import { ITelegrafContext } from './interfaces/ITelegrafContext'
-const rateLimit = require('telegraf-ratelimit')
-const session = require('telegraf/session')
+import path from "path";
+import db from "./database";
+import Telegraf from "telegraf";
+import sceneInitialisation from "./staging";
+import { TelegrafContext } from "telegraf/typings/context";
+import { ITelegrafContext } from "./interfaces/ITelegrafContext";
+const rateLimit = require("telegraf-ratelimit");
+const session = require("telegraf/session");
 
 export default () => {
-  const bot: any = new Telegraf(process.env.BOT_TOKEN as string)
+  const bot: any = new Telegraf(process.env.BOT_TOKEN as string);
 
   bot.use(
     rateLimit({
@@ -16,13 +16,13 @@ export default () => {
       limit: 1,
       onLimitExceeded: (ctx: TelegrafContext) => {
         try {
-          ctx.reply('Спокійніше, бо я не встигаю 😤')
+          ctx.reply("Спокійніше, бо я не встигаю 😤");
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
       },
     })
-  )
+  );
 
   bot.use(
     session({
@@ -30,15 +30,15 @@ export default () => {
         ctx.from &&
         `${ctx.from.id}:${(ctx.chat && ctx.chat.id) || ctx.from.id}`,
     })
-  )
+  );
 
-  sceneInitialisation(bot)
+  sceneInitialisation(bot);
 
   // bot.use(updateMiddleware)
 
   // bot.catch(errorNotification)
 
-  bot.on('message', (ctx: any) => ctx.scene.enter('welcome'))
+  bot.use((ctx: any) => ctx.scene.enter("welcome"));
 
   // db.connection.once('open', async () => {
   //   console.log('Connected to MongoDB')
@@ -46,7 +46,7 @@ export default () => {
   //   console.log(`Bot has been started`)
   // })
 
-  bot.launch()
-  console.log(`Bot has been started`)
-  return bot
-}
+  bot.launch();
+  console.log(`Bot has been started`);
+  return bot;
+};
