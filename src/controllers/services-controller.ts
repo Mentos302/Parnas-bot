@@ -2,6 +2,7 @@ import { Markup } from "telegraf";
 import { ITelegrafContext } from "../interfaces/ITelegrafContext";
 import { SERVICES } from "../../mocks/SERVICES";
 import { IService } from "../interfaces/IService";
+import { SanityService } from "../services/sanity-service";
 
 const Extra = require("telegraf/extra");
 
@@ -18,10 +19,13 @@ class ServicesContoroller {
     this.navigation = this.navigation.bind(this);
   }
 
-  navigation(ctx: ITelegrafContext) {
-    // TO-DO: [SERVICE] get services from db
+  async navigation(ctx: ITelegrafContext) {
+    const services = await new SanityService(
+      ctx.session.client
+    ).fetchServices();
+
     if (!this.items.length)
-      SERVICES.map((service) => {
+      services.map((service) => {
         const arr =
           service.parent_name &&
           this.items.find((item) => item.name === service.parent_name);

@@ -1,6 +1,7 @@
 import { SanityClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 import { IDoctor } from "../interfaces/IDoctor";
+import { IService } from "../interfaces/IService";
 
 export class SanityService {
   private client;
@@ -20,5 +21,18 @@ export class SanityService {
       description: el.doctorInfo,
       specialization: el.doctorSpec,
     }));
+  }
+
+  async fetchServices(): Promise<IService[]> {
+    const res = await this.client.fetch('*[_type == "services"]');
+
+    return res.map(
+      (el: any): IService => ({
+        parent_name: el.serviceParent,
+        name: el.serviceName,
+        description: el.serviceDescription,
+        site_url: el.serviceUrl,
+      })
+    );
   }
 }

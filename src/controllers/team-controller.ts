@@ -1,7 +1,6 @@
 import { Markup } from "telegraf";
 import { IDoctor } from "../interfaces/IDoctor";
 import { ITelegrafContext } from "../interfaces/ITelegrafContext";
-import { DOCTORS } from "../../mocks/DOCTORS";
 import { SanityService } from "../services/sanity-service";
 const Extra = require("telegraf/extra");
 
