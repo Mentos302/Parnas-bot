@@ -35,4 +35,10 @@ export class SanityService {
       })
     );
   }
+
+  async fetchContacts() {
+    const res = await this.client.fetch('*[_type == "contacts"]');
+
+    return res[0];
+  }
 }

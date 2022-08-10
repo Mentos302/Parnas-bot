@@ -1,22 +1,23 @@
 import { ITelegrafContext } from "../interfaces/ITelegrafContext";
 import { Markup } from "telegraf";
-import { CONTACTS } from "../../mocks/CONTACTS";
-
+import { SanityService } from "../services/sanity-service";
 const Extra = require("telegraf/extra");
 
 class ContactsContoroller {
-  // TO-DO: [SERVICE] get contacts from db
+  async enter(ctx: ITelegrafContext) {
+    const contacts = await new SanityService(
+      ctx.session.client
+    ).fetchContacts();
 
-  enter(ctx: ITelegrafContext) {
     ctx.replyWithHTML(
       `Клініка естетичної стоматології PARNAS знаходиться за адресою: <b>${
-        CONTACTS.address
-      }</b>\n\n<b>Телефони</b>:${CONTACTS.phones.map(
-        (phone) => `<code>\n${phone}</code>`
-      )}\n\nЕлектронна адреса: ${CONTACTS.email}\nНаш сайт: ${CONTACTS.site}`,
+        contacts.address
+      }</b>\n\n<b>Телефони</b>:${contacts.phones.map(
+        (phone: string) => `<code>\n${phone}</code>`
+      )}\n\nЕлектронна адреса: ${contacts.email}\nНаш сайт: ${contacts.site}`,
       Extra.markup((m: Markup<any>) =>
         m.inlineKeyboard([
-          [m.urlButton("Прокласти маршрут", CONTACTS.map_point)],
+          [m.urlButton("Прокласти маршрут", contacts.geopoint)],
           [m.callbackButton("Головне меню", `menu`)],
         ])
       )
