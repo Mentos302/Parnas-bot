@@ -4,10 +4,20 @@ import Telegraf from "telegraf";
 import sceneInitialisation from "./staging";
 import { TelegrafContext } from "telegraf/typings/context";
 import { ITelegrafContext } from "./interfaces/ITelegrafContext";
+const sanityClient = require("@sanity/client");
 const rateLimit = require("telegraf-ratelimit");
 const session = require("telegraf/session");
 
 export default () => {
+  const client = sanityClient({
+    projectId: "jrxrfxw3",
+    dataset: "dataset",
+    apiVersion: "2021-03-25", // use current UTC date - see "specifying API version"!
+    token:
+      "skR1H44kea38lNweRKe2LnNAUzoUUR0cDe7d606l6rJfZt0rWM0fJ0xBOFGzTMQlgN1YlE2jHQb1x1YA03GtvitESSV18mVsq5Ev0O8VUHTh2rwdTtRDaOeXUTKiT8enYnZsWfkQnSg4QhZemMxFwHytD4XSr8lRb1iwrGzkiYDRoNiJkaPT", // or leave blank for unauthenticated usage
+    useCdn: true, // `false` if you want to ensure fresh data
+  });
+
   const bot: any = new Telegraf(process.env.BOT_TOKEN as string);
 
   bot.use(
@@ -38,7 +48,10 @@ export default () => {
 
   // bot.catch(errorNotification)
 
-  bot.use((ctx: any) => ctx.scene.enter("welcome"));
+  bot.use((ctx: any) => {
+    ctx.session.client = client;
+    ctx.scene.enter("welcome");
+  });
 
   // db.connection.once('open', async () => {
   //   console.log('Connected to MongoDB')

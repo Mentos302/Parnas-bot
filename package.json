@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sanity/client": "^3.3.3",
+    "@sanity/image-url": "^1.0.1",
     "dotenv": "^16.0.1",
     "mongoose": "^6.5.0",
     "telegraf": "3.39",

@@ -2,7 +2,7 @@ import { Markup } from "telegraf";
 import { IDoctor } from "../interfaces/IDoctor";
 import { ITelegrafContext } from "../interfaces/ITelegrafContext";
 import { DOCTORS } from "../../mocks/DOCTORS";
-
+import { SanityService } from "../services/sanity-service";
 const Extra = require("telegraf/extra");
 
 class TeamContoroller {
@@ -16,21 +16,23 @@ class TeamContoroller {
     this.doctorPage = this.doctorPage.bind(this);
   }
 
-  teamNavigation(ctx: ITelegrafContext) {
-    // TO-DO: [SERVICE] get doctors from db
+  async teamNavigation(ctx: ITelegrafContext) {
+    const doctors = await new SanityService(ctx.session.client).fetchDoctors();
 
-    DOCTORS.map((doctor) => {
-      const spec = this.specs.find(
-        (spec) => spec.name === doctor.specialization
-      );
+    if (!this.specs.length) {
+      doctors.map((doctor) => {
+        const spec = this.specs.find(
+          (spec) => spec.name === doctor.specialization
+        );
 
-      if (spec) return spec.doctors.push(doctor);
+        if (spec) return spec.doctors.push(doctor);
 
-      this.specs.push({
-        name: doctor.specialization,
-        doctors: [doctor],
+        this.specs.push({
+          name: doctor.specialization,
+          doctors: [doctor],
+        });
       });
-    });
+    }
 
     ctx.reply(
       "<i>Виберіть спеціалізацію лікаря, який Вас цікавить:</i>",
