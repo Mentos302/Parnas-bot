@@ -6,6 +6,8 @@ import Callback from "./scenes/Callback";
 import Chating from "./scenes/Chating";
 import SpecNav from "./scenes/Team/SpecNav";
 import Doctor from "./scenes/Team/Doctor";
+import ServNav from "./scenes/Services/Nav";
+import Service from "./scenes/Services/Service";
 const Stage = require("telegraf/stage");
 
 export default (bot: any) => {
@@ -19,6 +21,8 @@ export default (bot: any) => {
       Chating,
       SpecNav,
       Doctor,
+      ServNav,
+      Service,
     ],
     {
       ttl: 120,

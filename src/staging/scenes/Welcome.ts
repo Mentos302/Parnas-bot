@@ -14,5 +14,7 @@ export default (() => {
 
   scene.action("doctors", controller.toDoctors);
 
+  scene.action("services", controller.toServices);
+
   return scene;
 })();

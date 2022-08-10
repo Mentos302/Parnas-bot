@@ -1,5 +1,6 @@
 export interface IService {
-  name: string
-  description: string
-  site_url: string
+  parent_name?: string;
+  name: string;
+  description: string;
+  site_url: string;
 }

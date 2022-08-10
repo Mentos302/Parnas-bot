@@ -52,7 +52,7 @@ class WelcomeContoroller {
   }
 
   toServices(ctx: ITelegrafContext) {
-    ctx.scene.enter("services");
+    ctx.scene.enter("services-nav");
   }
 
   toContacts(ctx: ITelegrafContext) {

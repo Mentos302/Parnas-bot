@@ -16,10 +16,6 @@ class TeamContoroller {
     this.doctorPage = this.doctorPage.bind(this);
   }
 
-  get specsList() {
-    return this.specs;
-  }
-
   teamNavigation(ctx: ITelegrafContext) {
     // TO-DO: [SERVICE] get doctors from db
 
