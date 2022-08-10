@@ -16,5 +16,7 @@ export default (() => {
 
   scene.action("services", controller.toServices);
 
+  scene.action("contacts", controller.toContacts);
+
   return scene;
 })();

@@ -8,6 +8,7 @@ import SpecNav from "./scenes/Team/SpecNav";
 import Doctor from "./scenes/Team/Doctor";
 import ServNav from "./scenes/Services/Nav";
 import Service from "./scenes/Services/Service";
+import Contacts from "./scenes/Contacts";
 const Stage = require("telegraf/stage");
 
 export default (bot: any) => {
@@ -23,6 +24,7 @@ export default (bot: any) => {
       Doctor,
       ServNav,
       Service,
+      Contacts,
     ],
     {
       ttl: 120,
