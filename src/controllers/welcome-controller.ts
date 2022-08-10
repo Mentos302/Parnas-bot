@@ -48,7 +48,7 @@ class WelcomeContoroller {
   }
 
   toDoctors(ctx: ITelegrafContext) {
-    ctx.scene.enter("doctors");
+    ctx.scene.enter("doctors-nav");
   }
 
   toServices(ctx: ITelegrafContext) {

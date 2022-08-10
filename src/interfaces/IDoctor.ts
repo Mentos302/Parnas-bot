@@ -1,6 +1,6 @@
 export interface IDoctor {
-  name: string
-  description: string
-  position: string
-  specialization: string
+  name: string;
+  photo: string;
+  description: string;
+  specialization: string;
 }

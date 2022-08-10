@@ -12,5 +12,7 @@ export default (() => {
 
   scene.action("req3", controller.toChating);
 
+  scene.action("doctors", controller.toDoctors);
+
   return scene;
 })();

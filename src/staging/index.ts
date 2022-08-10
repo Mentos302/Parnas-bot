@@ -4,6 +4,8 @@ import AppointmentName from "./scenes/Appointment/Name";
 import AppointmentPhone from "./scenes/Appointment/Phone";
 import Callback from "./scenes/Callback";
 import Chating from "./scenes/Chating";
+import SpecNav from "./scenes/Team/SpecNav";
+import Doctor from "./scenes/Team/Doctor";
 const Stage = require("telegraf/stage");
 
 export default (bot: any) => {
@@ -15,6 +17,8 @@ export default (bot: any) => {
       AppointmentPhone,
       Callback,
       Chating,
+      SpecNav,
+      Doctor,
     ],
     {
       ttl: 120,
