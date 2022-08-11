@@ -1,6 +1,5 @@
 import { Markup } from "telegraf";
 import { ITelegrafContext } from "../interfaces/ITelegrafContext";
-import { SERVICES } from "../../mocks/SERVICES";
 import { IService } from "../interfaces/IService";
 import { SanityService } from "../services/sanity-service";
 
