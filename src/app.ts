@@ -1,8 +1,8 @@
-import path from "path";
-import db from "./database";
 import Telegraf from "telegraf";
 import sceneInitialisation from "./staging";
 import { TelegrafContext } from "telegraf/typings/context";
+import { SanityService } from "./services/sanity-service";
+import { updateMiddleware } from "./middleware/update";
 import { ITelegrafContext } from "./interfaces/ITelegrafContext";
 const sanityClient = require("@sanity/client");
 const rateLimit = require("telegraf-ratelimit");
@@ -12,13 +12,14 @@ export default () => {
   const client = sanityClient({
     projectId: "jrxrfxw3",
     dataset: "dataset",
-    apiVersion: "2021-03-25", // use current UTC date - see "specifying API version"!
-    token:
-      "skR1H44kea38lNweRKe2LnNAUzoUUR0cDe7d606l6rJfZt0rWM0fJ0xBOFGzTMQlgN1YlE2jHQb1x1YA03GtvitESSV18mVsq5Ev0O8VUHTh2rwdTtRDaOeXUTKiT8enYnZsWfkQnSg4QhZemMxFwHytD4XSr8lRb1iwrGzkiYDRoNiJkaPT", // or leave blank for unauthenticated usage
-    useCdn: true, // `false` if you want to ensure fresh data
+    apiVersion: "2021-03-25",
+    token: process.env.SANITY_TOKEN,
+    useCdn: true,
   });
 
   const bot: any = new Telegraf(process.env.BOT_TOKEN as string);
+
+  new SanityService(client).listenToNewPromo(bot);
 
   bot.use(
     rateLimit({
@@ -44,22 +45,13 @@ export default () => {
 
   sceneInitialisation(bot);
 
-  // bot.use(updateMiddleware)
-
-  // bot.catch(errorNotification)
-
-  bot.use((ctx: any) => {
-    ctx.session.client = client;
-    ctx.scene.enter("welcome");
+  bot.use((ctx: ITelegrafContext) => {
+    updateMiddleware(ctx, client);
   });
 
-  // db.connection.once('open', async () => {
-  //   console.log('Connected to MongoDB')
-  //   bot.launch()
-  //   console.log(`Bot has been started`)
-  // })
-
   bot.launch();
+
   console.log(`Bot has been started`);
+
   return bot;
 };
