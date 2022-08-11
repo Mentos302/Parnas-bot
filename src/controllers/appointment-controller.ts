@@ -15,7 +15,7 @@ class AppointmentContoroller {
   }
 
   resInNewClient(ctx: ITelegrafContext) {
-    const isNewClient = String(ctx.match) === "yes";
+    const isNewClient = String(ctx.match) === "no";
 
     ctx.scene.enter("appointment-name", { isNewClient });
   }
@@ -43,6 +43,7 @@ class AppointmentContoroller {
   }
 
   async resPhone(ctx: ITelegrafContext) {
+    const { isNewClient, name } = ctx.scene.state;
     ctx.reply(
       "Ви успішно залишили заявку, очікуйте з Вами зв'яжкуться найближчим часом.",
       Extra.HTML().markup((m: Markup<any>) =>
@@ -50,10 +51,19 @@ class AppointmentContoroller {
       )
     );
 
-    const phone = ctx.message?.contact.phone_number || ctx.message?.text;
+    const phone = ctx.message?.contact
+      ? ctx.message?.contact.phone_number
+      : ctx.message?.text;
 
-    // TO-DO: [MIDDLEWARE] phone validation
-    // TO-DO: [SERVICE] send form to email/tg
+    ctx.telegram.sendMessage(
+      process.env.ADMIN_ID!,
+      `Нова заявка на прийом від <a href="tg://user?id=${ctx.from?.id}">${
+        ctx.from?.first_name
+      }</a>\n\n<b>Новий клієнт:</b> <code>${
+        isNewClient ? "Так" : "Ні"
+      }</code>\n<b>П.І.Б:</b> <code>${name}</code>\n<b>Номер телефону:</b> <code>${phone}</code>`,
+      Extra.HTML()
+    );
 
     ctx.scene.leave();
   }

@@ -8,5 +8,7 @@ export default (() => {
 
   scene.action("menu", controller.toMenu);
 
+  scene.on("message", controller.reEnter);
+
   return scene;
 })();

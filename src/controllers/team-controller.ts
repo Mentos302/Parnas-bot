@@ -102,6 +102,10 @@ class TeamContoroller {
   toMenu(ctx: ITelegrafContext) {
     ctx.scene.enter("welcome");
   }
+
+  reEnter(ctx: ITelegrafContext) {
+    ctx.scene.reenter();
+  }
 }
 
 export default new TeamContoroller();

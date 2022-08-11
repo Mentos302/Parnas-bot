@@ -8,5 +8,7 @@ export default (() => {
 
   scene.on(`callback_query`, controller.callbackHandler.bind(controller));
 
+  scene.on("message", controller.reEnter);
+
   return scene;
 })();

@@ -10,10 +10,6 @@ class ChatingContoroller {
   }
 
   resProblem(ctx: ITelegrafContext) {
-    ctx.replyWithHTML(
-      `Клієнт: <a href="tg://user?id=${ctx.from?.id}">${ctx.from?.first_name}</a>\n\n${ctx.message?.text}`
-    );
-
     ctx.reply(
       "Ви успішно залишили заявку, очікуйте з Вами зв'яжкуться найближчим часом.",
       Extra.HTML().markup((m: Markup<any>) =>
@@ -21,7 +17,11 @@ class ChatingContoroller {
       )
     );
 
-    // TO-DO: [SERVICE] send form to email/tg
+    ctx.telegram.sendMessage(
+      process.env.ADMIN_ID!,
+      `Нова заявка на чат від <a href="tg://user?id=${ctx.from?.id}">${ctx.from?.first_name}</a>\n\n${ctx.message?.text}`,
+      Extra.HTML()
+    );
 
     ctx.scene.leave();
   }

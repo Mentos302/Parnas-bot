@@ -22,10 +22,15 @@ class CallbackContoroller {
       )
     );
 
-    const phone = ctx.message?.contact.phone_number || ctx.message?.text;
+    const phone = ctx.message?.contact
+      ? ctx.message?.contact.phone_number
+      : ctx.message?.text;
 
-    // TO-DO: [MIDDLEWARE] phone validation
-    // TO-DO: [SERVICE] send phone to email/tg
+    ctx.telegram.sendMessage(
+      process.env.ADMIN_ID!,
+      `Нова заявка на передзвін від <a href="tg://user?id=${ctx.from?.id}">${ctx.from?.first_name}</a>\n\n<b>Номер телефону:</b> <code>${phone}</code>`,
+      Extra.HTML()
+    );
 
     ctx.scene.leave();
   }

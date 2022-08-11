@@ -58,6 +58,10 @@ class WelcomeContoroller {
   toContacts(ctx: ITelegrafContext) {
     ctx.scene.enter("contacts");
   }
+
+  reEnter(ctx: ITelegrafContext) {
+    ctx.scene.reenter();
+  }
 }
 
 export default new WelcomeContoroller();

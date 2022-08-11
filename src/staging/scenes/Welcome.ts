@@ -18,5 +18,7 @@ export default (() => {
 
   scene.action("contacts", controller.toContacts);
 
+  scene.on("message", controller.reEnter);
+
   return scene;
 })();
