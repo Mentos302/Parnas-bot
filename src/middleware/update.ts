@@ -11,7 +11,7 @@ export const updateMiddleware = async (
   if (ctx.from) {
     const user = await service.getUser(ctx.from?.id);
 
-    if (!user) {
+    if (!user[0]) {
       service.createUser(ctx.from.id, ctx.from.first_name);
     }
   }
