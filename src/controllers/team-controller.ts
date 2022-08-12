@@ -89,10 +89,17 @@ class TeamContoroller {
         .markup((m: Markup<any>) =>
           m.inlineKeyboard([
             [m.callbackButton("Записатись на прийом", `appointment`)],
-            [m.callbackButton("Головне меню", `menu`)],
+            [
+              m.callbackButton("Назад", `back`),
+              m.callbackButton("Головне меню", `menu`),
+            ],
           ])
         )
     );
+  }
+
+  getBack(ctx: ITelegrafContext) {
+    ctx.scene.enter("doctors-nav");
   }
 
   toAppointment(ctx: ITelegrafContext) {

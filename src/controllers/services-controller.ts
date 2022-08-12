@@ -102,13 +102,23 @@ class ServicesContoroller {
         if (service.site_url) {
           return m.inlineKeyboard([
             [m.urlButton("Перейти на сайт", service.site_url)],
-            [m.callbackButton("Головне меню", `menu`)],
+            [
+              m.callbackButton("Назад", `back`),
+              m.callbackButton("Головне меню", `menu`),
+            ],
           ]);
         } else {
-          return m.inlineKeyboard([m.callbackButton("Головне меню", `menu`)]);
+          return m.inlineKeyboard([
+            m.callbackButton("Назад", `back`),
+            m.callbackButton("Головне меню", `menu`),
+          ]);
         }
       })
     );
+  }
+
+  getBack(ctx: ITelegrafContext) {
+    ctx.scene.enter("services-nav");
   }
 
   toMenu(ctx: ITelegrafContext) {

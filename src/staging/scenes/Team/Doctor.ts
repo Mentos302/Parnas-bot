@@ -10,6 +10,8 @@ export default (() => {
 
   scene.action("menu", controller.toMenu);
 
+  scene.action("back", controller.getBack);
+
   scene.on("message", controller.reEnter);
 
   return scene;

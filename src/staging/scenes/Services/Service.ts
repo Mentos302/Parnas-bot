@@ -6,6 +6,8 @@ export default (() => {
 
   scene.enter(controller.servicePage);
 
+  scene.action("back", controller.getBack);
+
   scene.action("menu", controller.toMenu);
 
   scene.on("message", controller.reEnter);
