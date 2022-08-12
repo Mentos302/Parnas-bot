@@ -98,12 +98,16 @@ class ServicesContoroller {
 
     ctx.reply(
       `<b>${service.name}</b>\n\n<i>${service.description}</i>`,
-      Extra.HTML().markup((m: Markup<any>) =>
-        m.inlineKeyboard([
-          [m.urlButton("Перейти на сайт", service.site_url)],
-          [m.callbackButton("Головне меню", `menu`)],
-        ])
-      )
+      Extra.HTML().markup((m: Markup<any>) => {
+        if (service.site_url) {
+          return m.inlineKeyboard([
+            [m.urlButton("Перейти на сайт", service.site_url)],
+            [m.callbackButton("Головне меню", `menu`)],
+          ]);
+        } else {
+          return m.inlineKeyboard([m.callbackButton("Головне меню", `menu`)]);
+        }
+      })
     );
   }
 
